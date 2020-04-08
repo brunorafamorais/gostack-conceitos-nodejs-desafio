@@ -19,19 +19,19 @@ app.post("/repositories", (request, response) => {
 
   const payload = { id: uuid(), url, title, techs, likes: 0 };
 
-  repositories.push(payload)
+  repositories.push(payload);
 
-  return response.json(payload)
+  return response.json(payload);
 });
 
 app.put("/repositories/:id", (request, response) => {
   const { id } = request.params;
-  const { url, title, techs, likes } = request.body;
+  const { url, title, techs } = request.body;
 
   const repoIndex = repositories.findIndex(repo => repo.id === id);
 
   if (repoIndex < 0) {
-    return response.status(400).json({ error: 'Repository not found.' })
+    return response.status(400).json({ error: 'Repository not found.' });
   }
 
   const repository = { ...repositories[repoIndex], url, title, techs, likes: 0 };
@@ -47,12 +47,12 @@ app.delete("/repositories/:id", (req, res) => {
   const repoIndex = repositories.findIndex(repo => repo.id === id);
 
   if (repoIndex < 0) {
-    return res.status(400).json({ error: 'Repository not found.' })
+    return res.status(400).json({ error: 'Repository not found.' });
   }
 
   repositories.splice(repoIndex, 1);
 
-  return res.status(204).send() 
+  return res.status(204).send();
 });
 
 app.post("/repositories/:id/like", (request, response) => {
@@ -61,7 +61,7 @@ app.post("/repositories/:id/like", (request, response) => {
   const repoIndex = repositories.findIndex(repo => repo.id === id);
 
   if (repoIndex < 0) {
-    return response.status(400).json({ error: 'Repository not found.' })
+    return response.status(400).json({ error: 'Repository not found.' });
   }
 
   const el = repositories[repoIndex];
